@@ -1,0 +1,70 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+{% load humanize %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <link rel="preconnect" href="https://fonts.googleapis.com">
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Cart</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Shop</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-box-main">
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center"><b>Cart Information</b></h1>
+                    <div class="card shadow">
+                        <div class="cart-body cartdata">
+                            {% if cart %}
+                                {% for item in cart %}
+                                    <div class="row product_data mt-3">
+                                        <div class="col-md-2 my-auto ml-5">
+                                            <img src="{{ item.product.product_image1.url }}" height="80px" width="100px" alt="Image cart">
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <h3>{{ item.product.name }}</h3>
+                                        </div>
+                                        <div class="col-md-2 my-auto">
+                                            <h3>{{ item.product.selling_price | floatformat:0 | intcomma }} vnđ</h3>
+                                        </div>
+                                        <div class="col-md-3 my-auto">
+                                            <input type="hidden" class="prod_id" value="{{ item.product_id }}">
+                                            {% csrf_token %}
+                                            {% if item.product.quantity >= item.product_qty %}
+                                                <div class="input-group text-center mb-3" style="width: 130px;">
+                                                    <button class="input-group-text changeQuantity decrement-btn">-</button>
+                                                    <input type="text" name="quantity" class="form-control qty-input text-center" value="{{ item.product_qty }}">
+                                                    <button class="input-group-text changeQuantity increment-btn">+</button>
+                                                </div>
+                                            {% else %}
+                                                <h3>Out of stock</h3>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-1 my-auto">
+                                            <button class="btn btn-danger delete-cart-item"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                                <center><div class="mt-3 mb-3 ml-3 mr-3 col-md-12">
+                                    <a href="{% url 'checkout' %}" class="btn btn-success float-end">Checkout</a>
+                                </div></center>
+                            {% else %}
+                                <h2 class="mt-3 text-center">Your cart is empty<h2>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

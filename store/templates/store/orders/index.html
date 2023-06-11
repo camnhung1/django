@@ -1,0 +1,55 @@
+{% extends 'store/layouts/main.html' %}
+{% load humanize %}
+{% block content %}
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>My Orders</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myaccount' %}">My Account</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myorders' %}">My Orders</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="row mt-3 mb-3 ml-2 mr-2">
+        <div class="col-md-12">
+            <div class="cart shadow text-dark">
+                <div class="cart-header">
+                    <h2 class="text-center mt-3"><b>My Orders</b><h2>
+                </div>
+                <div class="cart-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="bg-info">
+                                <th>Order Date</th>
+                                <th>Tracking Number</th>
+                                <th>Total Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                                <tr>
+                                    <td>{{ item.created_at }}</td>
+                                    <td>{{ item.tracking_no }}</td>
+                                    <td>{{ item.total_price|floatformat:0|intcomma }} vnđ</td>
+                                    <td class="text-danger"><b>{{ item.status }}</b></td>
+                                    <td>
+                                        <a href="{% url 'ordersdetails' item.tracking_no %}" class="btn btn-primary fa fa-eye">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

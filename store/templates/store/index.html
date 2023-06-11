@@ -1,0 +1,95 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+    {% include 'store/inc/slider.html' %}
+    {% load humanize %}
+    <div class="products-box">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="title-all text-center">
+                <h1>Wooden</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="special-menu text-center">
+                <div class="button-group filter-button-group">
+                  <button class="active" data-filter="*">All</button>
+                  <button data-filter=".top-featured">Top featured</button>
+                  <button data-filter=".best-seller">Best seller</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row special-list">
+            {% for item in page.object_list %}
+                <div class="col-lg-3 col-md-6 special-grid top-featured">
+                    <div class="products-single fix product_data">
+                        <div class="box-img-hover">
+                        <div class="type-lb">
+                            <p class="sale">{{ item.tag }}</p>
+                        </div>
+                        <img src="{{ item.product_image1.url }}" class="img-fluid" alt="Image">
+                        <div class="mask-icon">
+                            <ul>
+                                <li><a href="{% url 'productview' item.category.slug item.slug %}" data-toggle="tooltip" data-placement="right" title="View"><i class="fa fa-eye"></i></a></li>
+                                <li class="addToWishlist"><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="fa fa-heart"></i></a></li>
+                            </ul>
+                            {% if item.quantity > 0 %}
+                                <li class="addToCartBtn" onclick="addCart()"><a class="cart">Add to Cart</a></li>
+                            {% else %}
+                                <a class="cart disabled">Out of stock </a>
+                            {% endif %}
+                        </div>
+                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ item.id }}" class="prod_id">
+                        <input type="hidden" value="1" class="qty-input">
+                        <div class="why-text">
+                        <h4>{{ item.name }}</h4>
+                        <h5>{{ item.selling_price|floatformat:0|intcomma }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+          </div>
+          <div class="row my-5">
+            <div class="col-md-4 offset-md-4">
+              {% comment %} <p class="text-dark">Page: {{ page.number }}/{{ page.paginator.num_pages }}</p> {% endcomment %}
+              <nav aria-label="...">
+                <ul class="pagination">
+                  <li class="page-item">
+                    {% if page.has_previous %}
+                      <a class="page-link" href="{% url 'home' %}?page={{ page.previous_page_number }}">Previous</a>
+                    {% endif %}
+                  </li>
+                  {% for num_page in page.paginator.page_range %}
+                    {% if page.number == num_page %}
+                      <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="{% url 'home' %}?page={{ num_page }}">{{ num_page }}</a>
+                      </li>
+                    {% else %}
+                      <li class="page-item" aria-current="page">
+                        <a class="page-link" href="{% url 'home' %}?page={{ num_page }}">{{ num_page }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                  <li class="page-item">
+                    {% if page.has_next %}
+                      <a class="page-link" href="{% url 'home' %}?page={{ page.next_page_number }}">Next</a>
+                    {% endif %}
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}
+
+
+
+

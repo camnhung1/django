@@ -1,0 +1,36 @@
+.checkoutform label{
+    font-size: 16px;
+    font-weight: bold;
+}
+.checkoutform input{
+    font-size: 16px;
+}
+.whatsapp-chat{
+    position: fixed;
+    bottom: 05% !important;
+    left:  03% !important;
+}
+.search-bar{
+    width: 40%;
+    margin-left:10% ;
+}
+.dropdown-item:hover{
+    background-color: aquamarine;
+}
+
+#btn-mat{
+    z-index: 9999;
+    position: relative;
+    top:62%;
+    right: 13%;
+}
+#eyeres{
+    position: relative;
+}
+
+#btn-matre{
+    z-index: 9999;
+    position:absolute;
+    top:60%;
+    right: 7%;
+}

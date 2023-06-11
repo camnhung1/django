@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/baguetteBox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootsnav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carousel-ticker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/code_animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.themme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/superslides.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hamburgers.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+
+    <meta name="referer" content="no-referer-when-downgrade">
+</head>
+<style>
+    * {
+        font-family: Script;
+    }
+
+    .product-viewtag {
+        background-color: red;
+        color: #fff;
+        font-size: 11px;
+        line-height: 1;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        top: 22px;
+        margin-left: 17.5rem;
+        padding: 7px 10px;
+        font-weight: 600;
+        min-width: 45px;
+    }
+</style>
+
+<body>
+    {% include 'store/inc/navbar.html' %}
+    {% block content %}
+
+    {% endblock content %}
+    {% include 'store/inc/footer.html' %}
+    <a href="https://wa.me/+918882224445?text=I'm%20interested%20in%20to%chat" target="_blank" class="whatsapp-chat">
+        <img src="{% static '/images/whatsapp-logo.png' %}" alt="whatsapp" width="60" />
+    </a>
+
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/jquery.superslides.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <script src="{% static 'js/inewsticker.js' %}"></script>
+    <script src="{% static 'js/bootsnav.js.' %}"></script>
+    <script src="{% static 'js/images-loded.min.js' %}"></script>
+    <script src="{% static 'js/isotope.min.js' %}"></script>
+    <script src="{% static 'js/owl.carosel.min.js' %}"></script>
+    <script src="{% static 'js/baguetteBox.min.js' %}"></script>
+    <script src="{% static 'js/form-validator.min.js' %}"></script>
+    <script src="{% static 'js/contact-form-script.js' %}"></script>
+    <script src="{% static '/js/custom.js' %}"></script>
+    <script src="{% static '/js/custom2.js' %}"></script>
+    <script src="{% static '/js/owl.carosel.min.js' %}"></script>
+    <script src="{% static '/js/select2.min.js' %}"></script>
+    <script src="{% static '/js/tilt.jquery.min.js' %}"></script>
+    <script src="{% static '/js/tilt.jquery.min.js' %}"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <script src="{% static '/js/main.js' %}"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>
+        var availableTags = [];
+
+        $.ajax({
+            type: "GET",
+            url: "/product-list",
+            success: function (response) {
+                startAutocomplete(response)
+            }
+        });
+        function startAutocomplete(availableTags) {
+            $("#searchproduct").autocomplete({
+                source: availableTags
+            });
+        }
+    </script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6358e0bab0d6371309cb9651/1gg9irn03';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+
+    <script>
+        alertify.set('notifier', 'position', 'top-right');
+        {% for msg in messages %}
+        alertify.success('{{ msg }}');
+        {% endfor %}
+    </script>
+    {% block script %}
+
+    {% endblock script %}
+    <script src="{% static '/js/checkout.js' %}"></script>
+    <script>
+        function togglePassword() {
+            var div = document.getElementById("mat");
+            if (div.classList.contains("fa-eye")) {
+                div.classList.remove("fa-eye");
+                div.classList.add("fa-eye-slash");
+            } else {
+                div.classList.remove("fa-eye-slash");
+                div.classList.add("fa-eye");
+            }
+            var password = document.getElementById("pw");
+            if (password.type === "password") {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+        }
+        function togglePassword1() {
+            var div = document.getElementById("matre");
+            if (div.classList.contains("fa-eye")) {
+                div.classList.remove("fa-eye");
+                div.classList.add("fa-eye-slash");
+            } else {
+                div.classList.remove("fa-eye-slash");
+                div.classList.add("fa-eye");
+            }
+            var password = document.getElementById("pw1");
+            var password1 = document.getElementById("repw");
+            if (password.type === "password") {
+                password.type = "text";
+                password1.type="text";
+            } else {
+                password.type = "password";
+                password1.type="password";
+            }
+        }
+    </script>
+</body>
+
+</html>

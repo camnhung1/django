@@ -1,0 +1,57 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+{% load humanize %}
+
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>{{ category.name }}</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Shop</a></li>
+                    <li class="breadcrumb-item text-white"> <a class="text-white"
+                            href="{% url 'collectionsview' 'category.slug' %}">{{ category.name }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row special-list mt-5">
+        {% for item in products %}
+        <div class="col-lg-3 col-md-6 special-grid best-seller">
+            <div class="products-single fix product_data">
+                <div class="box-img-hover">
+                    <div class="type-lb" style="width: 330px; height: 330px !important;">
+                        <p class="sale">{{ item.tag }}</p>
+                    </div>
+                    <div class="shop-cat-box">
+                        <img src="{{ item.product_image1.url }}" class="img-fluid" alt="Image">
+                    </div>
+                    <div class="mask-icon" style="width: 330px; height: 330px !important;">
+                        <ul>
+                            <li><a href="{% url 'productview' item.category.slug item.slug %}" data-toggle="tooltip"
+                                    data-placement="right" title="View"><i class="fa fa-eye"></i></a></li>
+                            <li class="addToWishlist"><a href="#" data-toggle="tooltip" data-placement="right"
+                                    title="Add to Wishlist"><i class="fa fa-heart"></i></a></li>
+                        </ul>
+                        {% if item.quantity > 0 %}
+                        <li class="addToCartBtn" onclick="addCart()"><a class="cart">Add to Cart</a></li>
+                        {% else %}
+                        <a class="cart disabled">Out of stock </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% csrf_token %}
+                <input type="hidden" value="{{ item.id }}" class="prod_id">
+                <input type="hidden" value="1" class="qty-input">
+                <div class="why-text" style="width: 330px; height: 113px !important;">
+                    <h4 style="width: 330px; height: 53.4px !important;">{{ item.name }}</h4>
+                    <h5>{{ item.selling_price|floatformat:0|intcomma }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

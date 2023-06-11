@@ -1,0 +1,139 @@
+{% load static %}
+{% load humanize %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <link rel="preconnect" href="https://fonts.googleapis.com">
+<div class="main-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="right-phone-box">
+          <p>Call US : <a href="#"> 0789828560 </a></p>
+        </div>
+        <div class="our-link">
+          <ul>
+            <li class="dropdown">
+              <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">
+                <i class="fa fa-user"></i> 
+                {% if request.user.is_authenticated %}
+                  {{ request.user }}
+                {% else %}
+                  Account
+                {% endif %}
+              </a>
+              <ul class="dropdown-menu">
+                {% if request.user.is_authenticated %}
+                  <li><a class="text-success" href="{% url 'logoutpage' %}">Logout</a></li>
+                  <li><a class="text-success" href="{% url 'edit' %}">Profile</a></li>
+                {% else %}
+                  <li><a class="text-success" href="{% url 'loginpage' %}">Login</a></li>
+                  <li><a class="text-success" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+              </ul>
+            </li>
+            <li><a href="https://goo.gl/maps/3vvq2wFBCYGJiHML7"><i class="fa fa-location-arrow"></i> Our location</a></li>
+            <li><a href="{% url 'contactus' %}"><i class="fa fa-headphones"></i> Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="text-slid-box">
+          <div id="offer-box" class="carouselTicker">
+            <ul class="offer-box">
+                <li><i class="fa fa-opencart"></i> 20% off Entire Purchase Promo code: offT80</li>
+                <li><i class="fa fa-opencart"></i> Off 50%! Shop Now</li>
+                <li><i class="fa fa-opencart"></i> Off 10%! Shop</li>
+                <li><i class="fa fa-opencart"></i> 50% - 80% welcome</li>
+                <li><i class="fa fa-opencart"></i> 20% off Entire Purchase Promo code: offT30</li>
+                <li><i class="fa fa-opencart"></i> Off 50%! Shop Now </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<header class="main-header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-bars"></i>
+        </button>
+        <a class="navbar-brand" href="{% url 'home' %}"><img width="90" src="{% static 'images/ND.png' %}" class="logo" alt=""><b>STORE</b><sup><i>Nội thất hiện đại</i></sup></a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+          <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+          <li class="dropdown {% if request.resolver_match.url_name == 'collections' or request.resolver_match.url_name == 'myaccount' or request.resolver_match.url_name == 'wishlist' or request.resolver_match.url_name == 'cart'%}active{% endif %}">
+            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
+            <ul class="dropdown-menu">
+              {% if request.user.is_authenticated %}
+                <li><a class="text-success" href="{% url 'myorders' %}">My Order</a></li>
+                <li><a class="text-success" href="{% url 'collections' %}">Category</a></li>
+                <li><a class="text-success" href="{% url 'cart' %}">Cart</a></li>
+                <li><a class="text-success" href="{% url 'checkout' %}">Checkout</a></li>
+                <li><a class="text-success" href="{% url 'wishlist' %}">Wishlist</a></li>
+              {% else %}
+                <li><a class="text-success" href="{% url 'collections' %}">Category</a></li>
+              {% endif %} 
+            </ul>
+          </li>
+          {% if request.user.is_superuser %}
+            <li class="nav-item {% if request.resolver_match.url_name == 'analyticsorderbymonth' %}active{% endif %}"><a class="nav-link" href="{% url 'analyticsorderbymonth' %}">Analytic</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'contactus' %}">Contact Us</a></li>
+        </ul>
+      </div>
+      {% if request.user.is_authenticated %}
+        <div class="attr-nav">
+          <ul>
+            <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+            <li class="side-menu cart_quantity">
+              <a href="#">
+                <i class="fa fa-shopping-bag"></i>
+                <span class="badge text-danger">
+                  {% csrf_token %}                
+                    {{ sl }}
+                </span>
+                <p>My Cart</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+    {% if request.user.is_authenticated %}
+      <div class="side">
+        <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+        <li class="cart-box cartbox_data">
+          <ul class="cart-list">
+            {% for incart in cart %}
+              <li>
+                <a href="#" class="photo"><img src="{{ incart.product.product_image1.url }}" class="cart-thumb" alt="" /></a>
+                <h6><a href="#">{{ incart.product.name }}</a></h6>
+                <p class="text-success">{{incart.product_qty}}x - <span class="price">{{ incart.product.selling_price | floatformat:0 | intcomma }}</span></p>
+              </li>
+            {% endfor %}
+            <li class="total">
+              <a href="{% url 'cart' %}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    {% endif %}
+  </nav>
+</header>
+<div class="top-search">
+  <center><div class="container">
+    <form action="{% url 'searchproduct' %}" method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="search" required name="keysearch" class="form-control" placeholder="Search product..." id="searchproduct">
+        <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+      </div>
+    </form>
+  </div></center>
+</div>

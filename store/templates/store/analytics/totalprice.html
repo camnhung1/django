@@ -1,0 +1,65 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+{% load humanize %}
+
+    <div class="container my-5">
+        <li style="list-style-type:none" class="nav-item dropdown">
+            <h1 class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Analytics - Thống kê
+        </h1>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'analyticsorderbymonth' %}">Analytics Order By Month</a></li>
+              <li><a class="dropdown-item" href="{% url 'analyticstotalprice' %}">Analytics Total Price</a></li>
+              <li><a class="dropdown-item" href="{% url 'analyticscountpro' %}">Analytics Quantity Product</a></li>
+            </ul>
+        </li>
+        <hr>
+        <br>
+        <div class="row text-dark"> 
+            <div class="col-md-6">
+                <h3 class="text-center">Bảng doanh thu theo tháng</h3>
+                <table class="table table-hover table-bordered text-center">
+                    <tr class="bg-info">
+                        <th>Tháng</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                    {% for sum in sumorders %}
+                        <tr>
+                            <td>{{ sum.month }}</td>
+                            <td>{{ sum.sum | floatformat:0 | intcomma}}<sup>đ</sup></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                
+            </div>    
+            <div class="col-md-6">
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <h3 class="text-center">Thống kê doanh thu theo tháng</h3>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        const labels = {{ monthNum|safe }};
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Total price by month',
+                backgroundColor: 'blue',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{ totalPrice }},
+            }]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+{% endblock content %}

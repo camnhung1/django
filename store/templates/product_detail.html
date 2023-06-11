@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ category.name }}</h1>
+  <h2>{{ product.name }}</h2>
+  
+  <!-- Hiển thị thông tin sản phẩm -->
+
+  <h3>Comments:</h3>
+  {% if comments %}
+    <ul>
+    {% for comment in comments %}
+      <li>{{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
+  <!-- Form để người dùng thêm bình luận -->
+
+{% endblock %}

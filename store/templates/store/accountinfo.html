@@ -1,0 +1,64 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+    <div class="container">
+        <div class="row">
+            <!-- <form action="{% url 'userinfo' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 shadow">
+                        <div class="cart checkoutform">
+                            <div class="cart-body">
+                                <div class="title-left mt-3">
+                                    <h3>Billing address</h3>
+                                </div>
+                                <div class="row text-dark">
+                                    <div class="col-md-6">
+                                        <label>First name</label>
+                                        <input type="text" required value="{{ request.user.first_name }}" class="form-control" name="fname" placeholder="Enter first name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Last name</label>
+                                        <input type="text" required value="{{ request.user.last_name }}" class="form-control" name="lname" placeholder="Enter last name">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>Email</label>
+                                        <input type="email" required value="{{ request.user.email }}" class="form-control" name="email" placeholder="Enter email">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>Phone</label>
+                                        <input type="text" required value="{{ userprofile.phone }}" class="form-control" name="phone" placeholder="Enter phone number">
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <label>Address</label>
+                                        <textarea required class="form-control" name="address" placeholder="Enter address">{{ userprofile.address }}</textarea>
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>City</label>
+                                        <input type="text" required value="{{ userprofile.city }}" class="form-control" name="city" placeholder="Enter city">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>State</label>
+                                        <input type="text" required value="{{ userprofile.state }}" class="form-control" name="state" placeholder="Enter state">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>Country</label>
+                                        <input type="text" required value="{{ userprofile.country }}" class="form-control" name="country" placeholder="Enter country">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                        <label>Pin code</label>
+                                        <input type="text" required value="{{ userprofile.pincode }}" class="form-control" name="pincode" placeholder="Enter pin code">
+                                    </div>
+                                    <div class="col-md-6 mt-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <p class="text-center">Chức năng chưa hoàn thành</p>
+        </div>
+    </div>
+{% endblock content %}

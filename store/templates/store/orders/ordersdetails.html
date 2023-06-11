@@ -1,0 +1,86 @@
+{% extends 'store/layouts/main.html' %}
+{% load humanize %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>My Orders</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myaccount' %}">My Account</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'myorders' %}">My Orders</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'ordersdetails' order.tracking_no %}">{{ order.tracking_no }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="cart shadow">
+                <div class="cart-header">
+                    <h2 class="text-center ml-3"><a href="{% url 'myorders' %}" class="text-success fa fa-reply float-left"></a><b>Orders Details</b><h2>
+                    <hr>
+                </div>
+                <div class="cart-body">
+                    <div class="row">
+                        <div class="col-md-5 shippingdetail ml-5 mb-3 text-dark">
+                            <h3><b>Shipping Details</b></h3>
+                            <hr>
+                            <label><b>Full Name</b></label>
+                            <div class="border p-1">{{ order.fname }} {{ order.lname }}</div>
+                            <label class="mt-2"><b>Contact</b></label>
+                            <div class="border p-1">{{ order.phone }}</div>
+                            <label class="mt-2"><b>Address</b></label>
+                            <div class="border p-1">
+                                {{ order.address }},
+                                {{ order.state }},
+                                {{ order.city }},
+                                {{ order.country }}
+                            </div>
+                            <label class="mt-2"><b>Email</b></label>
+                            <p class="border p-1">{{ order.email }}</p>
+                            <label class="mt-2"><b>Zip Code</b></label>
+                            <p class="border p-1">{{ order.pincode }}</p>  
+                        </div>
+                        <div class="col-md-6 text-dark">
+                            <h3><b>Shipping Products</b></h3>
+                            <hr>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-info">
+                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in orderitems %}
+                                        <tr>
+                                            <td>{{ item.product.name }}</td>
+                                            <td>
+                                                <img src="{{ item.product.product_image1.url }}" width="50" alt="image">
+                                            </td>
+                                            <td class="text-center">{{ item.quantity}}</td>
+                                            <td class="text-danger"><b>{{ item.price|floatformat:0|intcomma }}<sup>đ</sup></b></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <h3 class="text-danger"><b>Grand Total : <span class="float-end">{{ order.total_price|floatformat:0|intcomma }}<sup>đ</sup></span></b></h3>
+                            <h4 class="text-success"><b>Payment Mode:</b> {{ order.payment_mode }}</h4>
+                            <h4 class="text-warning"><b>Order Status:</b> {{ order.status }}</h4>
+                            <h4 class="text-primary"><b>Trackinh No.:</b> {{ order.tracking_no }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

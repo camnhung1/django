@@ -1,0 +1,64 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+{% load humanize %}
+
+    <div class="container my-5">
+        <li style="list-style-type:none" class="nav-item dropdown">
+            <h1 class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Analytics - Thống kê
+        </h1>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'analyticsorderbymonth' %}">Analytics Order By Month</a></li>
+              <li><a class="dropdown-item" href="{% url 'analyticstotalprice' %}">Analytics Total Price</a></li>
+              <li><a class="dropdown-item" href="{% url 'analyticscountpro' %}">Analytics Quantity Product</a></li>
+            </ul>
+        </li>
+        <hr>
+        <br>
+        <div class="row text-dark"> 
+            <div class="col-md-6">
+                <h3 class="text-center">Bảng số lượng đơn hàng</h3>
+                <table class="table table-hover table-bordered text-center">
+                    <tr class="bg-info">
+                        <th>Tháng</th>
+                        <th>Đơn hàng</th>
+                    </tr>
+                    {% for or in orders %}
+                        <tr>
+                            <td>{{ or.month }}</td>
+                            <td>{{ or.count }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>  
+            <div class="col-md-6">
+                <h3 class="text-center">Thống kê số lượng đơn hàng theo tháng</h3>
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>   
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        const labels = {{ monthNumber|safe }};
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Order by month',
+                backgroundColor: 'blue',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{ totalOrders }},
+            }]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {}
+        };
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+    </script>
+{% endblock content %}

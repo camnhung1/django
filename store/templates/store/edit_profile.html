@@ -1,0 +1,32 @@
+{% extends 'store/layouts/main.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="shadow">
+                <div class="cart mt-2 ml-3 mr-3 mb-3">
+                    <div class="cart-body text-dark">
+                        <h2>Edit Profile</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for=""><b>Email</b></label>
+                                {{form.email}}
+                            </div>
+                            <div class="form-group">
+                                <label for=""><b>First Name</b></label>
+                                {{form.first_name}}
+                            </div>
+                            <div class="form-group">
+                                <label for=""><b>Last Name</b></label>
+                                {{form.last_name}}
+                            </div>
+                            <button class="btn btn-success mb-3" type="submit">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
